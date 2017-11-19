@@ -1,15 +1,32 @@
 package domain;
 
+import javax.persistence.*;
+
+@Entity
 public class Matricula implements BaseEntity<Long> {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-
+	
+	@ManyToOne
+	@JoinColumn(name = "id_curso")
 	private Curso curso;
-
+	
+	@ManyToOne
+	@JoinColumn(name = "id_alumno")
 	private Alumno alumno;
 
 	private Double nota;
 
 	private String semestre;
+	
+	Matricula() {}
+	
+	Matricula(Curso curso, Alumno alumno, String semestre) {
+		this.curso = curso;
+		this.alumno = alumno;
+		this.semestre = semestre;
+	}
 
 	@Override
 	public Long getId() {
